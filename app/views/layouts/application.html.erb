@@ -7,10 +7,20 @@
     <%= csp_meta_tag %>
 
     <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
-    <%= javascript_importmap_tags %>
+    <%= javascript_include_tag "application", "data-turbo-track": "reload", type: "module" %>
+   <%= javascript_include_tag 'bootstrap.bundle.min.js' %>
+
   </head>
 
   <body>
-    <%= yield %>
+      <%= render "layouts/navbar" %>
+</br>
+        <div class="container">
+            <% if notice %>
+                <%= render "layouts/alert"%>
+            <%end%>
+</br>
+            <%= yield %>
+        </div>
   </body>
 </html>
