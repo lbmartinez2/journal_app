@@ -1,17 +1,24 @@
-<div id="<%= dom_id entry %>">
-  <p>
-    <strong>Title:</strong>
-    <%= entry.title %>
-  </p>
+<div id="<%= dom_id(entry) %>">
+<% if entry.category.downcase == "public" %>
+  <div class="card mb-3" style="width: 18rem;">
+    <div class="card-body">
+      <h5 class="card-title"><%= entry.title %></h5>
+      <p class="card-text"><%= entry.content %></p>
+      <p class="card-text"><%= entry.user_id %></p>
+    </div>
+      <%= link_to "Show this entry", entry %>
+  </div>
 
-  <p>
-    <strong>Content:</strong>
-    <%= entry.content %>
-  </p>
+  <%  elsif entry.user == current_user %>
+    <div class="card mb-3" style="width: 18rem;">
+      <div class="card-body">
+        <h5 class="card-title"><%= entry.title %></h5>
+        <p class="card-text"><%= entry.content %></p>
+        <p class="card-text"><%= entry.user_id %></p>
+    </div>
+      <%= link_to "Show this entry", entry %>
+  </div>
+  <% end %>
 
-  <p>
-    <strong>Category:</strong>
-    <%= entry.category %>
-  </p>
 
 </div>

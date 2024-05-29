@@ -12,21 +12,27 @@
   <% end %>
 
   <div>
-    <%= form.label :title, style: "display: block" %>
-    <%= form.text_field :title, class:"form-control w-100" %>
+    <% form.label :title, style: "display: block" %>
+    <%= form.text_field :title, class:"form-control w-100", placeholder:"Title" %>
+  </div>
+<br>
+  <div>
+    <% form.label :content, style: "display: block" %>
+    <%= form.text_area :content, class:"form-control w-100", placeholder:"Content" %>
+  </div>
+<br>
+  <div>
+    <% form.label :category, style: "display: block" %>
+    <%= form.text_field :category, class:"form-control w-100", placeholder:"Category" %>
   </div>
 
+<br>
   <div>
-    <%= form.label :content, style: "display: block" %>
-    <%= form.text_area :content, class:"form-control w-100" %>
+    <%= form.number_field :user_id, id: :entry_user_id, class:"form-control w-100", value:current_user.id, type: :hidden %>
   </div>
+<br>
 
   <div>
-    <%= form.label :category, style: "display: block" %>
-    <%= form.text_field :category, class:"form-control w-100" %>
-  </div>
-
-  <div>
-    <%= form.submit %>
+    <%= form.submit class:"btn btn-primary" %>
   </div>
 <% end %>

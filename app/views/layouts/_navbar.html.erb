@@ -30,11 +30,18 @@
   </div>
   <div class="offcanvas-body">
     <div class="d-grid gap-2">
-        <%= link_to "New entry", new_entry_path, class: "btn btn-primary" %>
 
-        <button class="btn btn-primary" type="button">Button</button>
-        <button class="btn btn-primary" type="button">Button</button>
-        <button class="btn btn-primary" type="button">Button</button>
+    <% if user_signed_in? %>
+            <%= link_to "New entry", new_entry_path, class: "btn btn-primary" %>
+            <%= link_to "Edit Profile", edit_user_registration_path, class: "btn btn-primary" %>
+            <%= button_to "Log Out", destroy_user_session_path, :method => :delete, data: { confirm: "Are you sure?" }, class: "btn btn-danger w-100" %>
+
+
+        <% else %>
+            <%= link_to "Sign Up", new_user_registration_path, class: "btn btn-primary" %>
+            <%= link_to "Sign In", new_user_session_path, class: "btn btn-primary" %>
+    <% end %>
+
   </div>
   </div>
 </div>

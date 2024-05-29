@@ -1,5 +1,7 @@
 class EntriesController < ApplicationController
   before_action :set_entry, only: %i[ show edit update destroy ]
+  before_action :authenticate_user!, except: [:index, :show]
+  before_action :correct_user, only: [:edit, :update, :destroy]
 
   # GET /entries or /entries.json
   def index
@@ -12,7 +14,7 @@ class EntriesController < ApplicationController
 
   # GET /entries/new
   def new
-    @entry = Entry.new
+    @entry = current_user.entries.build
   end
 
   # GET /entries/1/edit
@@ -21,7 +23,7 @@ class EntriesController < ApplicationController
 
   # POST /entries or /entries.json
   def create
-    @entry = Entry.new(entry_params)
+    @entry = current_user.entries.build(entry_params)
 
     respond_to do |format|
       if @entry.save
@@ -57,6 +59,17 @@ class EntriesController < ApplicationController
     end
   end
 
+  def correct_user
+      @entry = current_user.entries.find_by(id: params[:id])
+      redirect_to entries_path, notice: "Hold up! That was not your entry ( ｰ̀εｰ́ )" if @entry.nil?
+  end
+
+
+
+
+
+
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_entry
@@ -65,6 +78,6 @@ class EntriesController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def entry_params
-      params.require(:entry).permit(:title, :content, :category)
+      params.require(:entry).permit(:title, :content, :category, :user_id)
     end
 end
