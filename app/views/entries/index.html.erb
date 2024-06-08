@@ -2,7 +2,10 @@
 
 <div id="entries">
   <% @entries.each do |entry| %>
+  <% if entry.user == current_user %>
     <%= render entry %>
+          <%= link_to "Show this entry", entry, class: "btn btn-primary" %>
+          <% end %>
   <% end %>
 </div>
 
