@@ -1,4 +1,4 @@
-<nav class="navbar navbar-expand-lg " style="background-color: #e3f2fd;">
+<nav class="navbar navbar-expand-lg bg-primary navbar-dark" style="min-height:5rem;">
     <div class="container-fluid">
       <%= link_to "MyJournal", '/', class:"navbar-brand" %>
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -18,10 +18,10 @@
           <% if current_user.present? %>
             <%= form_with url: entries_path, method: :get, class: "d-flex", role: "search" do %>
                 <%= text_field_tag :search, params[:search], class: "form-control me-2", placeholder: "Search", aria: { label: "Search" } %>
-                <%= submit_tag "Search", class: "btn btn-outline-primary" %>
+                <%= submit_tag "Search", class: "btn btn-dark", style:"margin-right:1.5rem;" %>
             <% end %>
         <%end%>
-        <button class="btn btn-primary" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasWithBothOptions" aria-controls="offcanvasWithBothOptions">Menu</button>
+        <button class="btn btn-light d-none d-md-block" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasWithBothOptions" aria-controls="offcanvasWithBothOptions">Menu</button>
       </div>
     </div>
   </nav>
@@ -37,9 +37,9 @@
     <div class="d-grid gap-2">
 
     <% if user_signed_in? %>
-            <%= link_to "New entry", new_entry_path, class: "btn btn-primary" %>
+            <%= link_to "New entry", new_entry_path, class: "btn btn-success" %>
             <%= link_to "Edit Profile", edit_user_registration_path, class: "btn btn-primary" %>
-            <%= button_to "Log Out", destroy_user_session_path, :method => :delete, data: { confirm: "Are you sure?" }, class: "btn btn-danger w-100" %>
+           
 
 
         <% else %>
@@ -51,12 +51,16 @@
     <%= form_with(url: entries_path, method: :get, local: true, class: "mt-3", id: "category-form") do |f| %>
         <div class="mb-3">
           <%= f.label :category, "Filter by category", class: "form-label" %>
-          <%= f.select :category, options_for_select(Entry.distinct.pluck(:category).unshift(["All Categories", ""], ["Today's Tasks", "Todo Today"]),  params[:category]), {}, class: "form-select me-2", onchange: "submitForm();" %>
+          <% user_categories = current_user.entries.distinct.pluck(:category) %>
+          <% options = user_categories.unshift(["All Categories", ""], ["Today's Tasks", "Today's Tasks"]) %>
+          <%= f.select :category, options_for_select(options, params[:category]), {}, class: "form-select me-2", onchange: "submitForm();" %>
         </div>
         <%= f.submit "Search", class: "btn btn-outline-primary", style: "display: none;" %>
     <% end %>
   <%end%>
-
+<% if user_signed_in? %>
+   <%= button_to "Log Out", destroy_user_session_path, :method => :delete, data: { confirm: "Are you sure?" }, class: "btn btn-danger w-100 position-absolute bottom-0 start-0", style:"border-radius:0; height:4rem;" %>
+ <%end%>
   <script>
     function submitForm() {
         document.getElementById('category-form').submit();
@@ -66,3 +70,5 @@
   </div>
   </div>
 </div>
+
+<%# MODIFY CODE TO GET CURRENT USER CATEGORIES %>

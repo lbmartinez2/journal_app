@@ -1,8 +1,32 @@
 <%= render @entry %>
 
 <div>
-  <%= link_to "Edit this entry", edit_entry_path(@entry) %>
-  <%= link_to "Back to entries", entries_path %>
+  <br>
+  <%= link_to "Edit this entry", edit_entry_path(@entry), class:"btn btn-secondary" %>
+  <%= link_to "Back to entries", entries_path, class:"btn btn-dark" %>
 
-  <%= button_to "Destroy this entry", @entry, method: :delete %>
+
+</div>
+<br>
+<button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#exampleModal">Scrap Entry</button>
+
+
+
+
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content border-danger">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="exampleModalLabel">Are you sure?</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body text-danger">
+        <strong>This action cannot be reversed.</strong>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">I change my mind!</button>
+              <%= button_to "Destroy this entry", @entry, method: :delete, class:"btn btn-danger" %>
+      </div>
+    </div>
+  </div>
 </div>

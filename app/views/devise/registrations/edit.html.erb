@@ -59,9 +59,34 @@
   <div class="card-body">
     <h5 class="card-title">Cancel my account</h5>
     <p class="card-text">Thank you for using Journal. By clicking the button below, you will start a new chapter in life; hopefully an amazing one, as you traverse it without us.</p>
-    <%= button_to "Cancel my account", registration_path(resource_name), data: { confirm: "Are you sure?", turbo_confirm: "Are you sure?" }, method: :delete, class:"btn btn-danger" %>
+    <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#exampleModal">
+  Delete Account
+</button>
+
   </div>
   <div class="card-footer text-body-secondary">
     <i>Account created on: <%= @user.formatted_creation_date %></i>
+  </div>
+</div>
+
+
+
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content border-danger">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="exampleModalLabel">Are you sure?</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body text-danger">
+        <strong>This action cannot be reversed.</strong>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">I change my mind!</button>
+            <%= button_to "Yes, I'm sure!", registration_path(resource_name), data: { confirm: "Are you sure?", turbo_confirm: "Are you sure?" }, method: :delete, class:"btn btn-danger" %>
+      </div>
+    </div>
   </div>
 </div>

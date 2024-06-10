@@ -4,6 +4,6 @@ class Entry < ApplicationRecord
     validates :title, presence: true
 
     def formatted_creation_date
-        created_at.strftime("%B %d, %Y")
+        created_at.in_time_zone('Asia/Manila').strftime("%B %d, %Y %H:%M %Z")
     end
 end
